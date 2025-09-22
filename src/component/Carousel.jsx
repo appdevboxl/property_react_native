@@ -51,11 +51,11 @@ export default function Carousel() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 220,  
+    height: 320,  
   },
   image: {
     width: width,
-    height: 200,
+    height: 300,
     resizeMode: 'cover',
   },
   dots: {

@@ -1,27 +1,47 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {Image, Pressable, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 const Navbar = () => {
-    return (
-        <View style={styles.nav}>
-            <Image
-                source={require("../../public/logo.png")}
-                style={[styles.img, { width: '50%', height: '70%' }]}
-            />
-        </View>
-    )
-}
+  const navigation = useNavigation();
+  return (
+    <View style={styles.container}>
+      {/* Left logo */}
+      <Image
+        source={require('../../public/logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-export default Navbar
+      {/* Right login icon */}
+      <Pressable onPress={() => navigation.navigate('Login')}>
+        <Image
+          source={require('../../public/loginicon.png')}
+          style={styles.loginIcon}
+          resizeMode="contain"
+        />
+      </Pressable>
+    </View>
+  );
+};
+
+export default Navbar;
 
 const styles = StyleSheet.create({
-    nav: {
-        backgroundColor: 'black',
-        height: 70,
-
-    },
-    img: {
-        marginVertical: 10,
-        marginHorizontal: 20,
-    }
-})
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    height: 70,
+    paddingHorizontal: 15,
+  },
+  logo: {
+    width: 120,
+    height: 80,
+  },
+  loginIcon: {
+    width: 30,
+    height: 30,
+  },
+});

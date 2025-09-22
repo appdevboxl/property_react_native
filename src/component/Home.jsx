@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+
 import Entypo from "react-native-vector-icons/Entypo";
 import Navbar from "./Navbar";
 import Carousel from "./Carousel";
@@ -55,7 +55,7 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 0 }}>
       <Navbar />
       <Carousel />
 
@@ -79,19 +79,19 @@ const Home = ({ navigation }) => {
 
           <View style={styles.featureGrid}>
             <View style={styles.featureRow}>
-              <Icon name="home" size={14} color="#d97706" style={styles.featureIcon} />
+              <Icon name="home" size={14} color="#cda476ff" style={styles.featureIcon} />
               <Text style={styles.featureText}>Smart Home Design</Text>
             </View>
             <View style={styles.featureRow}>
-              <Icon name="leaf" size={14} color="#d97706" style={styles.featureIcon} />
+              <Icon name="leaf" size={14} color="#cda476ff" style={styles.featureIcon} />
               <Text style={styles.featureText}>Beautiful Scene Around</Text>
             </View>
             <View style={styles.featureRow}>
-              <Icon name="couch" size={14} color="#d97706" style={styles.featureIcon} />
+              <Icon name="couch" size={14} color="#cda476ff" style={styles.featureIcon} />
               <Text style={styles.featureText}>Exceptional Lifestyle</Text>
             </View>
             <View style={styles.featureRow}>
-              <Icon name="shield-alt" size={14} color="#d97706" style={styles.featureIcon} />
+              <Icon name="shield-alt" size={14} color="#cda476ff" style={styles.featureIcon} />
               <Text style={styles.featureText}>Complete 24/7 Security</Text>
             </View>
           </View>
@@ -125,7 +125,7 @@ const Home = ({ navigation }) => {
       <View style={styles.trendingSection}>
         <View style={styles.trendingLeft}>
           <View style={styles.trendingBadge}>
-            <Text style={styles.trendingBadgeText}>Trending</Text>
+             <Text style={styles.badge}>Trending</Text>
           </View>
           <Text style={styles.trendingTitle}>Recent Top Selling Apartment</Text>
           <Text style={styles.trendingParagraph}>
@@ -159,7 +159,7 @@ const Home = ({ navigation }) => {
 
           <TouchableOpacity
             style={styles.secondaryButton}
-            onPress={() => navigation.navigate("Sell")}
+            onPress={() => navigation.navigate("BrowseTab")}
           >
             <Text style={styles.secondaryButtonText}>Book Now</Text>
           </TouchableOpacity>
@@ -167,7 +167,7 @@ const Home = ({ navigation }) => {
 
         <View style={styles.trendingRight}>
           <Image
-            source={require("../../public/real-estate-template-13.png")}
+            source={require("../../public/assets/images/realator-template-13.png")}
             style={styles.trendingImage}
             resizeMode="cover"
           />
@@ -225,15 +225,15 @@ const Home = ({ navigation }) => {
                   Enimad minim veniam quis nostrud exercitation ullamco laboris.
                 </Text>
                 <View style={styles.planList}>
-                  <View style={styles.planListRow}><Text>Total Area</Text><Text>2800 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bedroom</Text><Text>150 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bathroom</Text><Text>45 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Balcony/Pets</Text><Text>Allowed</Text></View>
-                  <View style={styles.planListRow}><Text>Lounge</Text><Text>650 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Total Area</Text><Text style={styles.planListText}>2800 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bedroom</Text><Text style={styles.planListText}>150 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bathroom</Text><Text style={styles.planListText}>45 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Balcony/Pets</Text><Text style={styles.planListText}>Allowed</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Lounge</Text><Text style={styles.planListText}>650 Sq. Ft</Text></View>
                 </View>
               </View>
               <Image
-                source={require("../../public/real-estate-template-13.png")}
+                source={require("../../public/assets/images/clipart/17.png")}
                 style={styles.planImage}
                 resizeMode="contain"
               />
@@ -246,9 +246,9 @@ const Home = ({ navigation }) => {
                 <Text style={styles.planTitle}>Garden House</Text>
                 <Text style={styles.planText}>Enimad minim veniam quis nostrud exercitation ullamco laboris.</Text>
                 <View style={styles.planList}>
-                  <View style={styles.planListRow}><Text>Total Area</Text><Text>2800 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bedroom</Text><Text>150 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bathroom</Text><Text>45 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Total Area</Text><Text style={styles.planListText}>2800 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bedroom</Text><Text style={styles.planListText}>150 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bathroom</Text><Text style={styles.planListText}>45 Sq. Ft</Text></View>
                 </View>
               </View>
               <Image
@@ -265,9 +265,9 @@ const Home = ({ navigation }) => {
                 <Text style={styles.planTitle}>Double Room</Text>
                 <Text style={styles.planText}>Enimad minim veniam quis nostrud exercitation ullamco laboris.</Text>
                 <View style={styles.planList}>
-                  <View style={styles.planListRow}><Text>Total Area</Text><Text>2800 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bedroom</Text><Text>150 Sq. Ft</Text></View>
-                  <View style={styles.planListRow}><Text>Bathroom</Text><Text>45 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Total Area</Text><Text style={styles.planListText}>2800 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bedroom</Text><Text style={styles.planListText}>150 Sq. Ft</Text></View>
+                  <View style={styles.planListRow}><Text style={styles.planListText}>Bathroom</Text><Text style={styles.planListText}>45 Sq. Ft</Text></View>
                 </View>
               </View>
               <Image
@@ -300,7 +300,7 @@ const Home = ({ navigation }) => {
       </View>
 
       {/* Optional Footer (native) */}
-      {Footer ? <Footer /> : null}
+      <Footer/> 
     </ScrollView>
     </View>
   );
@@ -366,6 +366,7 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 
+
   trendingSection: {
     flexDirection: width > 800 ? "row" : "column",
     padding: 16,
@@ -374,7 +375,7 @@ const styles = StyleSheet.create({
   },
   trendingLeft: { flex: 1 },
   trendingRight: { flex: 1, alignItems: "center" },
-  trendingBadge: { backgroundColor: "#333", padding: 6, alignSelf: "flex-start", borderRadius: 4 },
+  trendingBadge: { backgroundColor: "#333", padding: 2, alignSelf: "flex-start", borderRadius: 0 },
   trendingBadgeText: { color: "#fff", fontSize: 12 },
   trendingTitle: { fontSize: 20, fontWeight: "700", marginTop: 8 },
   trendingParagraph: { color: "#444", marginTop: 6 },
@@ -411,7 +412,7 @@ const styles = StyleSheet.create({
 
   previewSection: { padding: 16 },
   previewHeader: { alignItems: "center", marginBottom: 12 },
-  previewBadge: { backgroundColor: "#333", color: "#fff", padding: 6, borderRadius: 4, overflow: "hidden", colorScheme: "dark" },
+  previewBadge: { backgroundColor: "#333", color: "#fff", padding: 6, borderRadius: 0, overflow: "hidden", colorScheme: "dark" },
   previewTitle: { fontSize: 20, fontWeight: "700", marginTop: 8 },
 
   tabList: { flexDirection: "row", justifyContent: "center", marginVertical: 12 },
@@ -425,15 +426,17 @@ const styles = StyleSheet.create({
   planBox: { flex: 1, backgroundColor: "#aa8453", padding: 16, borderRadius: 10 },
   planTitle: { fontSize: 18, fontWeight: "700", color: "#fff" },
   planText: { color: "#fff", marginTop: 8 },
-  planList: { marginTop: 12 },
-  planListRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 6, borderTopWidth: 0.5, borderTopColor: "rgba(255,255,255,0.2)" },
-  planImage: { flex: 1, width: width > 700 ? 280 : "100%", height: 180 },
-
+  planList: { marginTop: 12 ,  borderRadius: 6, padding: 8 },
+  planListRow: { flexDirection: "row",color: "white", justifyContent: "space-between", paddingVertical: 6, borderTopWidth: 0.5, borderTopColor: "rgba(255,255,255,0.2)" },
+  planImage: { flex: 1, width: width > 700 ? 280 : 300, height: 380 },
+  planListText: {
+    color: "white",
+  },
   amenitiesSection: { padding: 16 },
   amenitiesGrid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", gap: 12 },
   amenityCard: { width: "48%", backgroundColor: "#fff", padding: 14, marginBottom: 12, borderRadius: 8, alignItems: "center" },
   amenityIcon: { marginBottom: 8 },
   amenityLabel: { color: "#333", textAlign: "center" },
 
-  trendingImage: { width: width > 700 ? 320 : "100%", height: 220, borderRadius: 12 },
+  trendingImage: { width: width > 700 ? 320 : 400, height: 320, borderRadius: 0 ,paddingHorizontal:10},
 });
