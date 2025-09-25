@@ -16,9 +16,11 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Entypo from "react-native-vector-icons/Entypo";
 import Navbar from "./Navbar";
 import Carousel from "./Carousel";
-import Footer from "./Footer"; // optional — if you have a native Footer component
+
 
 const { width } = Dimensions.get("window");
+
+
 
 const tabsData = [
   { id: "deluxe", label: "Deluxe Portion" },
@@ -104,7 +106,7 @@ const Home = ({ navigation }) => {
 
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => navigation.navigate("Browse")}
+            onPress={() => navigation.navigate("Dashboard")}
           >
             <Text style={styles.primaryButtonText}>Our Services</Text>
           </TouchableOpacity>
@@ -300,7 +302,7 @@ const Home = ({ navigation }) => {
       </View>
 
       {/* Optional Footer (native) */}
-      <Footer/> 
+      {/* <Footer/>  */}
     </ScrollView>
     </View>
   );

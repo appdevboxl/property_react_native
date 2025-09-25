@@ -1,8 +1,19 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
+import mydata from '../../utils/data'
 import {useNavigation} from '@react-navigation/native';
+import {MMKV} from 'react-native-mmkv';
 const Login = ({navigation}) => {
-//   const mnavigation = useNavigation();
+  //   const mnavigation = useNavigation();
+  // const storage = new MMKV();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,13 +21,55 @@ const Login = ({navigation}) => {
   const handleChange = (name, value) => {
     setFormData(prev => ({...prev, [name]: value}));
   };
-  console.log(formData);
+
+  const handleSubmit = async () => {
+    const {email, password} = formData;
+    const userData = {email, password};
+    // {console.log(mydata.BASE_URL)}
+    try {
+      const response = await fetch(
+        `http://${mydata.BASE_URL}/api/auth/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('Success', data.message || 'User successfully logged in');
+        setFormData({
+          email: '',
+          password: '',
+        });
+        // storage.set('token', data.token);
+        navigation.navigate('Dashboard');
+      } else {
+        Alert.alert('Error', data.message || 'Login failed!');
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Error', 'Something went wrong!');
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../public/logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <View style={styles.innerbox}>
-        <Text style={{fontSize: 25, fontWeight: '700', marginBottom: 20}}>
-          User Login
-        </Text>
+        <View style={{flexDirection: 'column', alignItems: 'center'}}>
+          <Text style={{fontSize: 25, fontWeight: '700', marginBottom: 20}}>
+            User Login
+          </Text>
+        </View>
         <View style={{marginBottom: 20}}>
           <Text>Email</Text>
           <TextInput
@@ -37,7 +90,9 @@ const Login = ({navigation}) => {
           />
         </View>
         <View>
-          <Text style={styles.signinbtn}>Sign In</Text>
+          <TouchableOpacity onPress={handleSubmit}>
+            <Text style={styles.signinbtn}>Sign In</Text>
+          </TouchableOpacity>
         </View>
         <View style={{marginTop: 20, flexDirection: 'row'}}>
           <Text>
@@ -51,7 +106,7 @@ const Login = ({navigation}) => {
           </Text>
         </View>
         <Text
-          onPress={() => navigation.navigate('HomeScreen')}
+          onPress={() => navigation.navigate('HomeTab')}
           style={{
             color: '#aa8453',
             marginTop: 20,
@@ -80,9 +135,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    backgroundColor: '#f1eae1',
+    backgroundColor: '#cfc8beff',
     flexDirection: 'column',
-    gap: 80,
+    gap: 0,
   },
   inputstyle: {
     borderWidth: 1,
@@ -97,5 +152,12 @@ const styles = StyleSheet.create({
     color: 'white',
     width: '23%',
     borderRadius: 5,
+  },
+  logo: {
+    width: 120,
+    height: 80,
+    alignSelf: 'center',
+    marginBottom: 10,
+    justifyContent: 'center',
   },
 });

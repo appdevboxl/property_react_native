@@ -17,31 +17,49 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Signup from './src/component/Signup';
-import Ourservices from './src/component/Ourservices';
-import Ourmission from './src/component/Ourmission';
-import Timeline from './src/component/Timeline';
-import About from './src/component/About';
+import Dashboard from './src/component/Dashboard';
+import Location from './src/component/Location';
+import Compare from './src/component/Compare';
+import ViewProperty from './src/component/ViewProperty';
+import Addlocation from './src/component/Addlocation';
+import Agent from './src/component/Agent';
+import Leads from './src/component/Leads';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name="HomeScreen" component={Home} />
+    <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="Browse" component={Browse} />
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Signup" component={Signup} />
-    <Stack.Screen name="Ourservices" component={Ourservices} />
-    <Stack.Screen name="Ourmission" component={Ourmission} />
-    <Stack.Screen name="Timeline" component={Timeline} />
-    <Stack.Screen name="About" component={About} />
+    <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Screen name="Locations" component={Location} />
+    <Stack.Screen name="Addlocation" component={Addlocation} />
+    <Stack.Screen name="Agents" component={Agent} />
+    <Stack.Screen name="Leads" component={Leads} />
   </Stack.Navigator>
 );
 
 const SellStack = () => (
   <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen name="SellScreen" component={Sell} />
-    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="Signup" component={Signup} />
+    <Stack.Screen name="Dashboard" component={Dashboard} />
+    {/* <Stack.Screen name="HomeScreen" component={Home} /> */}
+  </Stack.Navigator>
+);
+
+const BrowseStack = () => (
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Screen name="BrowseScreen" component={Browse} />
+    <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="Signup" component={Signup} />
+    <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Screen name="Compare" component={Compare} />
+    <Stack.Screen name="ViewProperty" component={ViewProperty} />
   </Stack.Navigator>
 );
 
@@ -68,7 +86,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="BrowseTab"
-        component={Browse}
+        component={BrowseStack}
         options={{
           tabBarLabel: 'Browse',
           tabBarIcon: ({color}) => (
@@ -90,7 +108,7 @@ function MyTabs() {
         name="EMI_Calculator"
         component={Emicalculator}
         options={{
-          tabBarLabel: 'EMI Calculator',
+          tabBarLabel: 'EMI',
           tabBarIcon: ({color}) => (
             <Entypo name="calculator" size={30} color={color} />
           ),

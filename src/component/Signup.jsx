@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import mydata from '../../utils/data'
 const Signup = () => {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ const Signup = () => {
     const userData = { firstname, lastname, email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch(`http://${mydata.BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

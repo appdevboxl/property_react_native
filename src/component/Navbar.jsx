@@ -6,14 +6,15 @@ const Navbar = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      {/* Left logo */}
-      <Image
+      <Pressable onPress={() => navigation.navigate('HomeTab')}>
+
+      <Image 
         source={require('../../public/logo.png')}
         style={styles.logo}
         resizeMode="contain"
       />
+      </Pressable>
 
-      {/* Right login icon */}
       <Pressable onPress={() => navigation.navigate('Login')}>
         <Image
           source={require('../../public/loginicon.png')}
