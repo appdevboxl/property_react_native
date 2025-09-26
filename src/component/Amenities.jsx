@@ -13,7 +13,7 @@ import Pagination from './Pagination'; // partial Pagination
 import AdminHeader from './AdminHeader';
 import {useNavigation} from '@react-navigation/native';
 import mydata from '../../utils/data';
-const Location = () => {
+const Amenities = () => {
   const navigation = useNavigation();
   const [locations, setLocations] = useState([]);
   const [search, setSearch] = useState('');
@@ -33,11 +33,11 @@ const Location = () => {
   const fetchLocations = async () => {
     try {
       const response = await fetch(
-        `http://${mydata.BASE_URL}/api/admin/getlocation`,
+        `http://${mydata.BASE_URL}/api/admin/amenities`,
       );
       const data = await response.json();
-      setLocations(data.mylocation);
-      setFilteredData(data.mylocation);
+      setLocations(data.myamenity);
+      setFilteredData(data.myamenity);
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch locations');
     }
@@ -60,7 +60,7 @@ const Location = () => {
   const deleteLocation = async id => {
     try {
       const response = await fetch(
-        `http://${mydata.BASE_URL}/api/admin/deletelocation/${id}`,
+        `http://${mydata.BASE_URL}/api/admin/deleteamenity/${id}`,
         {method: 'DELETE'},
       );
       if (response.ok) {
@@ -95,20 +95,20 @@ const Location = () => {
             </TouchableOpacity>
             <Text style={{color: '#b5895d', fontWeight: 'bold', fontSize: 16}}>
               {' '}
-              / Locations
+              / Amenities
             </Text>
           </View>
           <TouchableOpacity
             style={styles.addBtn}
             onPress={() => {
-              navigation.navigate('Addlocation');
+              navigation.navigate('AddAmenities');
             }}>
-            <Text style={styles.addBtnText}>Add Location</Text>
+            <Text style={styles.addBtnText}>Add Amenities</Text>
           </TouchableOpacity>
         </View>
         <View>
           <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 15}}>
-            Locations
+            Amenities
           </Text>
         </View>
         <View style={styles.searchBox}>
@@ -126,8 +126,8 @@ const Location = () => {
 
         {/* Table header */}
         <View style={styles.tableHeader}>
-          <Text style={[styles.headerCell, {flex: 1}]}>S.No.</Text>
-          <Text style={[styles.headerCell, {flex: 2}]}>Location</Text>
+          <Text style={[styles.headerCell, {flex: 2}]}>S.No.</Text>
+          <Text style={[styles.headerCell, {flex: 3}]}>Amenities</Text>
           <Text style={[styles.headerCell, {flex: 1}]}>Action</Text>
         </View>
 
@@ -137,11 +137,11 @@ const Location = () => {
         ) : (
           pageData.map((item, index) => (
             <View key={item._id} style={styles.row}>
-              <Text style={[styles.cell, {flex: 1}]}>
+              <Text style={[styles.cell, {flex: 2}]}>
                 {' '}
                 {(currentPage - 1) * itemsPerPage + (index + 1)}{' '}
               </Text>
-              <Text style={[styles.cell, {flex: 2}]}>{item.location}</Text>
+              <Text style={[styles.cell, {flex: 3,textTransform:'capitalize'}]}>{item.amenities}</Text>
               <TouchableOpacity
                 style={[styles.deleteBtn, {flex: 0.8}]}
                 onPress={() => {
@@ -174,9 +174,9 @@ const Location = () => {
           onRequestClose={() => setIsDeleteModalOpen(false)}>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Delete Location</Text>
+              <Text style={styles.modalTitle}>Delete Amenities</Text>
               <Text style={styles.modalMsg}>
-                Are you sure you want to delete this location?
+                Are you sure you want to delete this amenities?
               </Text>
               <View style={styles.modalActions}>
                 <TouchableOpacity
@@ -198,7 +198,7 @@ const Location = () => {
   );
 };
 
-export default Location;
+export default Amenities;
 
 const styles = StyleSheet.create({
   container: {flex: 1, padding: 16, backgroundColor: '#f9f6f0'},

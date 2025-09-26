@@ -28,6 +28,8 @@ import Openleads from './src/component/Openleads';
 import Closedleads from './src/component/Closedleads';
 import Lostleads from './src/component/Lostleads';
 import EditLead from './src/component/EditLead';
+import Amenities from './src/component/Amenities';
+import Addamenities from './src/component/Addamenities';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,6 +49,8 @@ const HomeStack = () => (
     <Stack.Screen name="Closedleads" component={Closedleads} />
     <Stack.Screen name="Lostleads" component={Lostleads} />
     <Stack.Screen name="EditLead" component={EditLead} />
+    <Stack.Screen name="Amenities" component={Amenities} />
+    <Stack.Screen name="AddAmenities" component={Addamenities} />
   </Stack.Navigator>
 );
 

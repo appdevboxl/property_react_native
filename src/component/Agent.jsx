@@ -114,7 +114,11 @@ const Agent = () => {
             <Text style={styles.addBtnText}>Add Agent</Text>
           </TouchableOpacity>
         </View>
-
+        <View>
+          <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 15}}>
+            Agents
+          </Text>
+        </View>
         {/* Search */}
         <View style={styles.searchBox}>
           <TextInput
@@ -250,13 +254,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#b5895d',
     paddingVertical: 10,
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
   },
   headerCell: { fontWeight: 'bold', color: '#fff' },
   row: {
     flexDirection: 'row',
     paddingVertical: 12,
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     alignItems: 'center',
