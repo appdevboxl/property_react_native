@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
-  FlatList,
   TouchableOpacity,
   Linking,
 } from 'react-native';
@@ -127,20 +126,19 @@ const ViewProperty = ({route, navigation}) => {
 
         {/* Gallery */}
         <Text style={styles.sectionTitle}>Gallery</Text>
-        <FlatList
-          horizontal
-          data={property.prop_images || []}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <Image
-              source={{uri: `${BASE_URL}/${item}`}}
-              style={styles.galleryImage}
-            />
-          )}
-          ListEmptyComponent={
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom: 8}}>
+          {(property.prop_images && property.prop_images.length > 0) ? (
+            property.prop_images.map((item, index) => (
+              <Image
+                key={index}
+                source={{uri: `${BASE_URL}/${item}`}}
+                style={styles.galleryImage}
+              />
+            ))
+          ) : (
             <Text style={styles.emptyText}>No images available</Text>
-          }
-        />
+          )}
+        </ScrollView>
 
         {/* Key Details */}
         <Text style={styles.sectionTitle}>Key Details</Text>

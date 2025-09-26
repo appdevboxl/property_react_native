@@ -21,7 +21,7 @@ const Browse = () => {
   const [loading, setLoading] = useState(true);
   const [compMode, setCompMode] = useState(true);
   
-
+  // console.log(selectedProperties)
   useEffect(() => {
     fetchProperties();
   }, []);
@@ -32,7 +32,7 @@ const Browse = () => {
       const mydata = await response.json();
       setProperties(mydata.myproperty || []);
     } catch (error) {
-      console.error("Error fetching properties:", error);
+      // console.error("Error fetching properties:", error);
       Alert.alert("Error", "Something went wrong while fetching properties");
     } finally {
       setLoading(false);
