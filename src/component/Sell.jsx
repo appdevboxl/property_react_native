@@ -82,6 +82,7 @@ const Sell = ({navigation}) => {
   };
 
   return (
+    
     <ScrollView>
       <Navbar />
       <View style={styles.container}>
@@ -170,8 +171,9 @@ const Sell = ({navigation}) => {
           <View>
             <Text>Message</Text>
             <TextInput
-              style={[styles.inputstyle, {height: 100}]}
+              style={[styles.textarea, {height: 100}]}
               multiline
+              numberOfLines={4}
               value={formData.message}
               onChangeText={text => handleChange('message', text)}
             />
@@ -222,4 +224,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+    textarea: {
+    borderWidth: .5,
+    // borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    minHeight: 100,
+    textAlignVertical: 'top',
+    // backgroundColor: '#fff',
+  }
 });

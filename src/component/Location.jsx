@@ -98,6 +98,9 @@ const Location = () => {
             value={search}
             onChangeText={setSearch}
           />
+          <TouchableOpacity style={styles.searchBtn}>
+            <Icon name="search" size={20} color="#fff" />
+          </TouchableOpacity>
           {/* Removed manual search button, search is now live */}
         </View>
 
@@ -237,4 +240,10 @@ const styles = StyleSheet.create({
     minWidth: 70,
     alignItems: 'center',
   },
+    searchBtn: {
+    backgroundColor: '#aa8453',
+    padding: 10,
+    borderRadius: 5,
+    marginLeft: 8,
+  }
 });

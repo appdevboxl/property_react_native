@@ -24,6 +24,10 @@ import ViewProperty from './src/component/ViewProperty';
 import Addlocation from './src/component/Addlocation';
 import Agent from './src/component/Agent';
 import Leads from './src/component/Leads';
+import Openleads from './src/component/Openleads';
+import Closedleads from './src/component/Closedleads';
+import Lostleads from './src/component/Lostleads';
+import EditLead from './src/component/EditLead';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,6 +43,10 @@ const HomeStack = () => (
     <Stack.Screen name="Addlocation" component={Addlocation} />
     <Stack.Screen name="Agents" component={Agent} />
     <Stack.Screen name="Leads" component={Leads} />
+    <Stack.Screen name="Openleads" component={Openleads} />
+    <Stack.Screen name="Closedleads" component={Closedleads} />
+    <Stack.Screen name="Lostleads" component={Lostleads} />
+    <Stack.Screen name="EditLead" component={EditLead} />
   </Stack.Navigator>
 );
 
