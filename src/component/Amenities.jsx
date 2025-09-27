@@ -50,8 +50,8 @@ const Amenities = () => {
     } else {
       const results = locations.filter(
         item =>
-          item.location &&
-          item.location.toLowerCase().includes(search.toLowerCase()),
+          item.amenities &&
+          item.amenities.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredData(results);
     }

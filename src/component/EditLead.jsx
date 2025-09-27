@@ -232,7 +232,8 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 40,
   },
   button: {
     flex: 1,

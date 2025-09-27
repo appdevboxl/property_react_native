@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios --active-arch-only",
+    "ios": "react-native run-ios",
     "start": "react-native start"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "prop-types": "^15.8.1",
     "react": "18.3.1",
     "react-native": "0.76.3",
+    "react-native-image-picker": "^8.2.1",
     "react-native-pie-chart": "^3.0.2",
     "react-native-safe-area-context": "^5.6.1",
     "react-native-screens": "^4.16.0",

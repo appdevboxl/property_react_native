@@ -141,7 +141,7 @@ const Location = () => {
                 {' '}
                 {(currentPage - 1) * itemsPerPage + (index + 1)}{' '}
               </Text>
-              <Text style={[styles.cell, {flex: 2}]}>{item.location}</Text>
+              <Text style={[styles.cell, {flex: 2, textTransform: 'capitalize'}]}>{item.location}</Text>
               <TouchableOpacity
                 style={[styles.deleteBtn, {flex: 0.8}]}
                 onPress={() => {

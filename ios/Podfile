@@ -1,4 +1,4 @@
-platform :ios, '18.4'
+platform :ios, '13.4'
 
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
@@ -7,9 +7,26 @@ target 'mprop' do
   config = use_native_modules!
 
   use_react_native!(
-    :path => "../node_modules/react-native",
-    :hermes_enabled => true
+    :path => config[:reactNativePath],
+    :hermes_enabled => true,   # Hermes is bundled with RN 0.76+
+    :fabric_enabled => true    # Enable Fabric renderer
   )
 
-  # Add other pods here if needed
+  # Add any other pods here if needed
+
+end
+
+# This fixes the non-modular include errors in React Native 0.76+
+post_install do |installer|
+  react_native_post_install(
+    installer,
+    :mac_catalyst_enabled => false
+  )
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+    end
+  end
 end

@@ -59,7 +59,8 @@ const Agent = () => {
     } else {
       const results = agents.filter(item =>
         (item.name || '').toLowerCase().includes(search.toLowerCase()) ||
-        (item.location || '').toLowerCase().includes(search.toLowerCase())
+        (item.location || '').toLowerCase().includes(search.toLowerCase()) ||
+        (item.status || '').toLowerCase().includes(search.toLowerCase())
       );
       setFilteredData(results);
     }
