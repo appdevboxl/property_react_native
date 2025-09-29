@@ -33,6 +33,7 @@ import Addamenities from './src/component/Addamenities';
 import Banks from './src/component/Banks';
 import AddBank from './src/component/AddBank';
 import Customers from './src/component/Customers';
+import Properties from './src/component/Properties';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,6 +58,8 @@ const HomeStack = () => (
     <Stack.Screen name="Banks" component={Banks} />
     <Stack.Screen name="AddBank" component={AddBank} />
     <Stack.Screen name="Customers" component={Customers} />
+    <Stack.Screen name="ViewProperty" component={ViewProperty} />
+    <Stack.Screen name="Properties" component={Properties} />
   </Stack.Navigator>
 );
 
