@@ -12,6 +12,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Navbar from './Navbar';
 import myurl from '../../utils/data';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import PropertyFilter from './PropertyFilter';
 
 const Browse = () => {
   const navigation = useNavigation();
@@ -19,6 +21,7 @@ const Browse = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [compMode, setCompMode] = useState(true);
+  const [getToggleFilter, setToggleFilter] = useState(false);
 
   // console.log(selectedProperties)
   useEffect(() => {
@@ -84,167 +87,131 @@ const Browse = () => {
     );
   }
 
-  const renderCard = ({item}) => {
-    if (item.listing_status !== 'Published') return null;
-
-    return (
-      <View style={styles.card}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            compMode && navigation.navigate('ViewProperty', {id: item._id})
-          }>
-          <Image
-            source={{
-              uri: `http://${myurl.BASE_URL}/${item.frontimage}`,
-            }}
-            style={styles.image}
-          />
-          <View style={styles.cardContent}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.sub}>
-                Posted on:{' '}
-                {item.createdAt
-                  ? new Date(item.createdAt).toLocaleDateString()
-                  : 'N/A'}
-              </Text>
-            </View>
-            <Text style={styles.price}>
-              ₹{Intl.NumberFormat('en-IN').format(Math.round(item.price))}{' '}
-              {item.property_for === 'Rent' ? (
-                <Text style={styles.sub}>/month</Text>
-              ) : null}
-            </Text>
-            <Text style={styles.sub2}>{item.property_type}</Text>
-            <Text style={styles.sub2}>
-              {item.location || 'Unknown Location'}
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        {/* Compare button only in Compare Mode */}
-        {!compMode && (
-          <TouchableOpacity
-            style={styles.compareBtn}
-            onPress={() => toggleProperty(item._id)}>
-            <Text style={styles.compareText}>
-              {selectedProperties.includes(item._id)
-                ? 'Remove'
-                : 'Add to Compare'}
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    );
-  };
-
   return (
     <ScrollView style={{flex: 1}}>
       <Navbar />
 
-      <View style={styles.container}>
-        {/* Compare Mode Toggle */}
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.toggleBtn}
-            onPress={() => setCompMode(!compMode)}>
-            <Text style={styles.toggleText}>
-              {compMode ? 'Enable Compare' : 'Browse Mode'}
-            </Text>
-          </TouchableOpacity>
-
-          {!compMode && (
-            <TouchableOpacity style={styles.toggleBtn} onPress={handleCompare}>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{display: getToggleFilter ? 'flex' : 'none'}}>
+        <PropertyFilter  setProperties={setProperties} properties={properties} getToggleFilter={getToggleFilter} setToggleFilter={setToggleFilter}/>
+        </View>
+        <View style={styles.container}>
+          {/* Compare Mode Toggle */}
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => setToggleFilter(!getToggleFilter)}>
+              <View
+                style={{fontSize: 16, fontWeight: '600', color: '#000000ff'}}>
+                <Icon
+                  name="bars"
+                  size={24}
+                  color="#060606ff"
+                  style={styles.cardIcon}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.toggleBtn}
+              onPress={() => setCompMode(!compMode)}>
               <Text style={styles.toggleText}>
-                Compare ({selectedProperties.length})
+                {compMode ? 'Enable Compare' : 'Browse Mode'}
               </Text>
             </TouchableOpacity>
+
+            {!compMode && (
+              <TouchableOpacity
+                style={styles.toggleBtn}
+                onPress={handleCompare}>
+                <Text style={styles.toggleText}>
+                  Compare ({selectedProperties.length})
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {/* Property List */}
+          {properties.filter(item => item.listing_status === 'Published')
+            .length === 0 ? (
+            <View style={styles.noData}>
+              <Text style={styles.noDataText}>No Properties Found</Text>
+            </View>
+          ) : (
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}>
+              {properties
+                .filter(item => item.listing_status === 'Published')
+                .map(item => (
+                  <View key={item._id} style={[styles.card, {width: '100%'}]}>
+                    {' '}
+                    {/* 2-column grid */}
+                    {/* Card content is clickable only in Browse mode */}
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() =>
+                        compMode &&
+                        navigation.navigate('ViewProperty', {id: item._id})
+                      }>
+                      <Image
+                        source={{
+                          uri: item.frontimage
+                            ? `http://${myurl.BASE_URL}/${item.frontimage}`
+                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbR404NaZnOg3caAUxBtap2gY7WQ5KGixnc9CQ1p7olqFmjQ_k69Q-dlg&s',
+                        }}
+                        style={styles.image}
+                      />
+                      <View style={styles.cardContent}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}>
+                          <Text style={styles.title}>{item.title}</Text>
+                          <Text style={styles.sub}>
+                            Posted on:{' '}
+                            {item.createdAt
+                              ? new Date(item.createdAt).toLocaleDateString()
+                              : 'N/A'}
+                          </Text>
+                        </View>
+                        <View
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
+                          <Text style={styles.price}>
+                            ₹
+                            {Intl.NumberFormat('en-IN').format(
+                              Math.round(item.price),
+                            )}
+                          </Text>
+                          {item.property_for === 'Rent' && (
+                            <Text style={styles.sub}> /month</Text>
+                          )}
+                        </View>
+
+                        <Text style={styles.sub2}>{item.property_type}</Text>
+                        <Text style={styles.sub2}>
+                          {item.location || 'Unknown Location'}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    {/* Compare button only in Compare Mode */}
+                    {!compMode && (
+                      <TouchableOpacity
+                        style={styles.compareBtn}
+                        onPress={() => toggleProperty(item._id)}>
+                        <Text style={styles.compareText}>
+                          {selectedProperties.includes(item._id)
+                            ? 'Remove'
+                            : 'Add to Compare'}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                ))}
+            </View>
           )}
         </View>
-
-        {/* Property List */}
-        {properties.filter(item => item.listing_status === 'Published')
-          .length === 0 ? (
-          <View style={styles.noData}>
-            <Text style={styles.noDataText}>No Properties Found</Text>
-          </View>
-        ) : (
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-            }}>
-            {properties
-              .filter(item => item.listing_status === 'Published')
-              .map(item => (
-                <View key={item._id} style={[styles.card, {width: '100%'}]}>
-                  {' '}
-                  {/* 2-column grid */}
-                  {/* Card content is clickable only in Browse mode */}
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      compMode &&
-                      navigation.navigate('ViewProperty', {id: item._id})
-                    }>
-                    <Image
-                      source={{
-                        uri: `http://${myurl.BASE_URL}/${item.frontimage}`,
-                      }}
-                      style={styles.image}
-                    />
-                    <View style={styles.cardContent}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.title}>{item.title}</Text>
-                        <Text style={styles.sub}>
-                          Posted on:{' '}
-                          {item.createdAt
-                            ? new Date(item.createdAt).toLocaleDateString()
-                            : 'N/A'}
-                        </Text>
-                      </View>
-                      <View
-                        style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={styles.price}>
-                          ₹
-                          {Intl.NumberFormat('en-IN').format(
-                            Math.round(item.price),
-                          )}
-                        </Text>
-                        {item.property_for === 'Rent' && (
-                          <Text style={styles.sub}> /month</Text>
-                        )}
-                      </View>
-
-                      <Text style={styles.sub2}>{item.property_type}</Text>
-                      <Text style={styles.sub2}>
-                        {item.location || 'Unknown Location'}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                  {/* Compare button only in Compare Mode */}
-                  {!compMode && (
-                    <TouchableOpacity
-                      style={styles.compareBtn}
-                      onPress={() => toggleProperty(item._id)}>
-                      <Text style={styles.compareText}>
-                        {selectedProperties.includes(item._id)
-                          ? 'Remove'
-                          : 'Add to Compare'}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              ))}
-          </View>
-        )}
       </View>
 
       {/* <Footer /> */}
@@ -279,7 +246,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     width: '100%',
   },
-  image: {width: '100%', height: 120},
+  image: {width: '100%', height: 130, objectFit: 'cover'},
   cardContent: {padding: 10},
   title: {
     fontSize: 20,

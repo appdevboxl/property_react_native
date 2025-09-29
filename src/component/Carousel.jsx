@@ -4,9 +4,9 @@ import { View, FlatList, Image, Dimensions, StyleSheet } from 'react-native';
 const { width } = Dimensions.get('window');
 
 const images = [
-  { id: '2', uri: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGhvbWV8ZW58MHx8MHx8fDA%3D' },
-  { id: '1', uri: 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGhvbWV8ZW58MHx8MHx8fDA%3D' },
-  { id: '3', uri: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fGhvbWV8ZW58MHx8MHx8fDA%3D' },
+  { id: '2', uri: 'https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg' },
+  { id: '1', uri: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzh8fGhvbWV8ZW58MHx8MHx8fDA%3D' },
+  { id: '3', uri: 'https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fGhvbWV8ZW58MHx8MHx8fDA%3D' },
 ];
 
 export default function Carousel() {

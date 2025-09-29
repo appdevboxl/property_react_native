@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#f5f5f5', padding: 16},
   center: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   coverImage: {width: '100%', height: 220, borderRadius: 10, marginBottom: 12},
-  title: {fontSize: 24, fontWeight: 'bold', color: '#333'},
+  title: {fontSize: 24, fontWeight: 'bold', color: '#333',textTransform: 'capitalize'},
   subtitle: {fontSize: 16, color: '#666', marginBottom: 6},
   price: {fontSize: 22, fontWeight: 'bold', color: '#aa8453'},
   status: {fontSize: 16, color: '#444', marginBottom: 16},

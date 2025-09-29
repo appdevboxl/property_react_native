@@ -34,6 +34,10 @@ import Banks from './src/component/Banks';
 import AddBank from './src/component/AddBank';
 import Customers from './src/component/Customers';
 import Properties from './src/component/Properties';
+import EditProperty from './src/component/EditProperty';
+import Addagent from './src/component/Addagent';
+import Addproperties from './src/component/Addproperties';
+import PropertyFilter from './src/component/PropertyFilter';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,6 +64,10 @@ const HomeStack = () => (
     <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="ViewProperty" component={ViewProperty} />
     <Stack.Screen name="Properties" component={Properties} />
+    <Stack.Screen name="EditProperty" component={EditProperty} />
+    <Stack.Screen name="AddAgent" component={Addagent} />
+    <Stack.Screen name="AddProperties" component={Addproperties} />
+    <Stack.Screen name="Filter" component={PropertyFilter} />
   </Stack.Navigator>
 );
 

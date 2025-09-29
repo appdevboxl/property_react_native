@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "#000",
-    textDecorationLine: "underline",
+    fontSize: 16,
   },
   active: {
     color: "#aa8453",

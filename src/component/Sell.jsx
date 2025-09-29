@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {Picker} from '@react-native-picker/picker'; 
+import {Picker} from '@react-native-picker/picker';
 import Navbar from './Navbar';
-import mydata from '../../utils/data'
+import mydata from '../../utils/data';
 const Sell = ({navigation}) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -22,7 +22,7 @@ const Sell = ({navigation}) => {
     message: '',
   });
 
-  const [locations, setLocations] = useState([]); 
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -62,7 +62,10 @@ const Sell = ({navigation}) => {
       const data = await response.json();
 
       if (response.ok) {
-        Alert.alert('Success', data.message || 'Sell request send successfully');
+        Alert.alert(
+          'Success',
+          data.message || 'Sell request send successfully',
+        );
         setFormData({
           name: '',
           email: '',
@@ -82,7 +85,6 @@ const Sell = ({navigation}) => {
   };
 
   return (
-    
     <ScrollView>
       <Navbar />
       <View style={styles.container}>
@@ -143,7 +145,7 @@ const Sell = ({navigation}) => {
                 <Picker.Item label="Select Location" value="" />
                 {locations.map(loc => (
                   <Picker.Item
-                    key={loc.id}
+                    key={loc._id}
                     label={loc.location}
                     value={loc.location}
                   />
@@ -224,13 +226,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
-    textarea: {
-    borderWidth: .5,
+  textarea: {
+    borderWidth: 0.5,
     // borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
     minHeight: 100,
     textAlignVertical: 'top',
     // backgroundColor: '#fff',
-  }
+  },
 });
