@@ -94,7 +94,7 @@ const Properties = () => {
       </Text>
       <View style={[styles.cell, {flexDirection: 'row'}]}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', {id: item._id})}>
+          onPress={() => navigation.navigate('EditProperty', {id: item._id})}>
           <Icon name="edit" size={18} color="#aa8453" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   breadcrumb: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 1,
   },
   title: {fontSize: 22, fontWeight: 'bold', marginBottom: 16},
   searchContainer: {

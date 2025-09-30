@@ -272,7 +272,7 @@ const Customers = ({navigation}) => {
             </TouchableOpacity>
             <Text style={{color: '#b5895d', fontWeight: 'bold', fontSize: 16}}>
               {' '}
-              / Locations
+              / Customers Data
             </Text>
           </View>
           <Text style={styles.title}>Customers Data</Text>

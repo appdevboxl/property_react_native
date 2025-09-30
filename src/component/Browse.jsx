@@ -156,7 +156,7 @@ const Browse = () => {
                         source={{
                           uri: item.frontimage
                             ? `http://${myurl.BASE_URL}/${item.frontimage}`
-                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbR404NaZnOg3caAUxBtap2gY7WQ5KGixnc9CQ1p7olqFmjQ_k69Q-dlg&s',
+                            : 'https://img.freepik.com/premium-photo/purely-vector-illustration-white-background_915071-14546.jpg?semt=ais_incoming&w=740&q=80',
                         }}
                         style={styles.image}
                       />
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     width: '100%',
   },
-  image: {width: '100%', height: 130, objectFit: 'cover'},
+  image: {width: '100%', height: 130, objectFit: 'contain'},
   cardContent: {padding: 10},
   title: {
     fontSize: 20,

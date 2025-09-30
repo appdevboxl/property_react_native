@@ -151,10 +151,16 @@ const Agent = () => {
               <Text style={[styles.cell, { flex: 1.2 }]}>
                 {(currentPage - 1) * itemsPerPage + (index + 1)}
               </Text>
-              <Text style={[styles.cell, { flex: 2 }]}>{item.name || 'N/A'}</Text>
-              <Text style={[styles.cell, { flex: 2 }]}>{item.location || 'N/A'}</Text>
+              <Text style={[styles.cell, { flex: 2, textTransform: 'capitalize' }]}>{item.name || 'N/A'}</Text>
+              <Text style={[styles.cell, { flex: 2 ,textTransform: 'capitalize' }]}>{item.location || 'N/A'}</Text>
               <Text style={[styles.cell, { flex: 2 }]}>{item.status || 'N/A'}</Text>
               <TouchableOpacity
+                style={styles.deleteBtn}
+               onPress={() => navigation.navigate('EditAgent', {id: item._id})}
+              >
+                <Icon name="edit" size={20} color="#b5895d" />
+              </TouchableOpacity>
+               <TouchableOpacity
                 style={styles.deleteBtn}
                 onPress={() => {
                   setSelectedId(item._id);

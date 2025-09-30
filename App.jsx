@@ -38,6 +38,7 @@ import EditProperty from './src/component/EditProperty';
 import Addagent from './src/component/Addagent';
 import Addproperties from './src/component/Addproperties';
 import PropertyFilter from './src/component/PropertyFilter';
+import EditAgent from './src/component/EditAgent';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,7 @@ const HomeStack = () => (
     <Stack.Screen name="EditProperty" component={EditProperty} />
     <Stack.Screen name="AddAgent" component={Addagent} />
     <Stack.Screen name="AddProperties" component={Addproperties} />
-    <Stack.Screen name="Filter" component={PropertyFilter} />
+    <Stack.Screen name="EditAgent" component={EditAgent} />
   </Stack.Navigator>
 );
 

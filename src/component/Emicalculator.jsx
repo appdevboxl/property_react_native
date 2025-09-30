@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import Navbar from "./Navbar";
 
 const Emicalculator = () => {
   const [loan, setLoan] = useState("500000");
@@ -63,6 +64,9 @@ const Emicalculator = () => {
   };
 
   return (
+
+    <>
+    <Navbar />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>EMI Calculator</Text>
 
@@ -122,6 +126,7 @@ const Emicalculator = () => {
         </View>
       )}
     </ScrollView>
+    </>
   );
 };
 
