@@ -23,7 +23,6 @@ const Browse = () => {
   const [compMode, setCompMode] = useState(true);
   const [getToggleFilter, setToggleFilter] = useState(false);
 
-  // console.log(selectedProperties)
   useEffect(() => {
     fetchProperties();
   }, []);
@@ -98,9 +97,8 @@ const Browse = () => {
         <View style={styles.container}>
           {/* Compare Mode Toggle */}
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => setToggleFilter(!getToggleFilter)}>
-              <View
-                style={{fontSize: 16, fontWeight: '600', color: '#000000ff'}}>
+            <TouchableOpacity style={{ padding: 0, display: getToggleFilter ? 'none' : 'flex' }} onPress={() => setToggleFilter(!getToggleFilter)}>
+              <View>
                 <Icon
                   name="bars"
                   size={24}
@@ -170,7 +168,7 @@ const Browse = () => {
                           }}>
                           <Text style={styles.title}>{item.title}</Text>
                           <Text style={styles.sub}>
-                            Posted on:{' '}
+                           
                             {item.createdAt
                               ? new Date(item.createdAt).toLocaleDateString()
                               : 'N/A'}

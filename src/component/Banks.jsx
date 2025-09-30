@@ -27,7 +27,7 @@ const Banks = () => {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(mydata.pages);
 
   useEffect(() => {
     fetchBanks();

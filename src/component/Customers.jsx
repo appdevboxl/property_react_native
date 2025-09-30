@@ -296,7 +296,13 @@ const Customers = ({navigation}) => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.filterButton}
-                onPress={handleFilter}>
+                onPress={() => {
+                  handleFilter();
+                  if (from || to) {
+                    Alert.alert('Success', 'Customers data fetch successfully');
+                    return;
+                  }
+                }}>
                 <Text style={styles.buttonText}>Filter</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -338,13 +344,19 @@ const Customers = ({navigation}) => {
               </View>
 
               {filteredData.length > 0 ? (
-                <FlatList
-                  data={currentPageData}
-                  renderItem={renderItem}
-                  keyExtractor={(item, index) => index.toString()}
-                  style={styles.flatList}
-                  scrollEnabled={false}
-                />
+                <View style={styles.flatList}>
+                  {currentPageData.map((item, index) => (
+                    <View style={styles.row} key={item._id || index}>
+                      <Text style={styles.cell}>{index + 1}.</Text>
+                      <Text style={styles.cell}>{item.name}</Text>
+                      <Text style={styles.cell}>{item.email}</Text>
+                      <Text style={styles.cell}>{item.mobile_no}</Text>
+                      <Text style={styles.cell}>{item.location}</Text>
+                      <Text style={styles.cell}>{item.status}</Text>
+                      <Text style={styles.cell}>{formatDate(item.createdAt)}</Text>
+                    </View>
+                  ))}
+                </View>
               ) : (
                 <Text style={styles.noData}>
                   No data found for selected date range

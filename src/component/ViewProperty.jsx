@@ -143,7 +143,7 @@ const ViewProperty = ({route, navigation}) => {
         {/* Key Details */}
         <Text style={styles.sectionTitle}>Key Details</Text>
         <DetailRow label="Property ID" value={property._id || 'N/A'} />
-        <DetailRow label="Builder" value={property.builder_name || 'N/A'} />
+        <DetailRow label="Builder" style value={property.builder_name || 'N/A'} />
         <DetailRow
           label="Year Built"
           value={property.construction_year || 'N/A'}
@@ -165,6 +165,7 @@ const ViewProperty = ({route, navigation}) => {
               key={i}
               label={place.place || 'Unknown place'}
               value={place.distance || 'N/A'}
+              style={{textTransform: 'capitalize'}}
             />
           ))
         ) : (

@@ -8,12 +8,12 @@ const PropertyFilter = ({ setProperties, properties, getToggleFilter, setToggleF
   const [getany, setany] = useState(false);
   const [filters, setFilters] = useState({
     location: "",
-    propertyType: [],
+    propertyType: "",
     propertyStatus: "",
     minPrice: "",
     maxPrice: "",
-    bedrooms: [],
-    area: [],
+    bedrooms: "",
+    area: "",
     options: [],
   });
 
@@ -62,6 +62,7 @@ const PropertyFilter = ({ setProperties, properties, getToggleFilter, setToggleF
       setProperties(data.myproperty);
       if (!res.ok) throw new Error(data.message || "Failed to filter");
       Alert.alert("Success", "Successfully filtered");
+          setToggleFilter(!getToggleFilter);
     } catch (err) {
       console.error(err);
       Alert.alert("Error", err.message || "Something went wrong");
@@ -80,6 +81,7 @@ const PropertyFilter = ({ setProperties, properties, getToggleFilter, setToggleF
       options: [],
     });
     setany(false);
+
   };
 
   return (
@@ -230,7 +232,7 @@ const PropertyFilter = ({ setProperties, properties, getToggleFilter, setToggleF
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#1f1f1f', padding: 15,width:250 },
-  closeBtn: { position: 'absolute', top: 10, right: 10 },
+  closeBtn: { position: 'absolute', top: -10, right: 0,padding: 5,zIndex:1 },
   closeText: { fontSize: 24, color: 'white' },
   label: { color: 'white', fontSize: 16, marginVertical: 10 },
   pickerContainer: { backgroundColor: 'white', borderRadius: 5, marginBottom: 10 },
