@@ -155,9 +155,23 @@ const Openleads = () => {
               <Text style={[styles.cell, {flex: .8}]}>
                 {item.type || 'N/A'}
               </Text>
-              <Text style={[styles.lcell, {flex: .9}]}>
-                {item.location || 'N/A'}
-              </Text><Text style={[styles.cell, {flex: 1.5}]}>
+              {item.location ? (
+                              <Text style={[styles.lcell, {flex: 1.5}]}>
+                                {item.location || 'N/A'}
+                              </Text>
+                            ) : (
+                              <TouchableOpacity
+                                style={[styles.lcell, {flex: 1.5}]}
+                                onPress={() =>
+                                  navigation.navigate('ViewProperty', {id: item.property})
+                                }>
+                                <Text style={[styles.lcell, {flex: 2}]}>
+                                  Interested{' '}
+                                  <Icon name="location-arrow" size={10} color="#b5895d" />
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+              <Text style={[styles.cell, {flex: 1.5}]}>
                 {new Date(item.createdAt).toLocaleDateString()}
               </Text>
               <Text style={[styles.cell, {flex: 1.7}]}>

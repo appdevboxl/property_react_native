@@ -228,11 +228,9 @@ const styles = StyleSheet.create({
   },
   textarea: {
     borderWidth: 0.5,
-    // borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
     minHeight: 100,
     textAlignVertical: 'top',
-    // backgroundColor: '#fff',
   },
 });

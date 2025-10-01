@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import mydata from '../../utils/data'
-import {useNavigation} from '@react-navigation/native';
-import {MMKV} from 'react-native-mmkv';
+// import EncryptedStorage from 'react-native-encrypted-storage';
 const Login = ({navigation}) => {
   //   const mnavigation = useNavigation();
   // const storage = new MMKV();
@@ -25,7 +24,13 @@ const Login = ({navigation}) => {
   const handleSubmit = async () => {
     const {email, password} = formData;
     const userData = {email, password};
-    // {console.log(mydata.BASE_URL)}
+
+//     await EncryptedStorage.setItem('user_session', JSON.stringify({
+//   age: 21,
+//   token: 'ACCESS_TOKEN',
+//   username: 'emeraldsanto',
+// }));
+// console.log(await EncryptedStorage.getItem('user_session'));
     try {
       const response = await fetch(
         `http://${mydata.BASE_URL}/api/auth/login`,

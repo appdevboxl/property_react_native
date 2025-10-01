@@ -21,8 +21,6 @@ const Openleads = () => {
   const [search, setSearch] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [pageData, setPageData] = useState([]);
- 
-  
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -132,8 +130,8 @@ const Openleads = () => {
         </View>
 
         {/* Table Header */}
-        <View  style={styles.tableHeader}>
-          <Text style={[styles.headerCell, {flex: .7}]}>S.</Text>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.headerCell, {flex: 0.7}]}>S.</Text>
           <Text style={[styles.headerCell, {flex: 1.8}]}>Name</Text>
           <Text style={[styles.headerCell, {flex: 1.8}]}>Type</Text>
           <Text style={[styles.headerCell, {flex: 2.5}]}>Location</Text>
@@ -148,16 +146,30 @@ const Openleads = () => {
         ) : (
           pageData.map((item, index) => (
             <View key={item._id} style={styles.row}>
-              <Text style={[styles.cell, {flex: .4}]}>
+              <Text style={[styles.cell, {flex: 0.4}]}>
                 {(currentPage - 1) * itemsPerPage + (index + 1)}
               </Text>
               <Text style={[styles.cell, {flex: 1}]}>{item.name || 'N/A'}</Text>
-              <Text style={[styles.cell, {flex: .8}]}>
+              <Text style={[styles.cell, {flex: 0.8}]}>
                 {item.type || 'N/A'}
               </Text>
-              <Text style={[styles.lcell, {flex: .9}]}>
-                {item.location || 'N/A'}
-              </Text><Text style={[styles.cell, {flex: 1.5}]}>
+              {item.location ? (
+                              <Text style={[styles.lcell, {flex: 1.5}]}>
+                                {item.location || 'N/A'}
+                              </Text>
+                            ) : (
+                              <TouchableOpacity
+                                style={[styles.lcell, {flex: 1.5}]}
+                                onPress={() =>
+                                  navigation.navigate('ViewProperty', {id: item.property})
+                                }>
+                                <Text style={[styles.lcell, {flex: 2}]}>
+                                  Interested{' '}
+                                  <Icon name="location-arrow" size={10} color="#b5895d" />
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+              <Text style={[styles.cell, {flex: 1.5}]}>
                 {new Date(item.createdAt).toLocaleDateString()}
               </Text>
               <Text style={[styles.cell, {flex: 1.7}]}>
@@ -165,7 +177,9 @@ const Openleads = () => {
               </Text>
               <TouchableOpacity
                 style={styles.deleteBtn}
-                onPress={() => {navigation.navigate('EditLead', {id: item._id});}}>
+                onPress={() => {
+                  navigation.navigate('EditLead', {id: item._id});
+                }}>
                 <Icon name="edit" size={15} color="#b5895d" />
               </TouchableOpacity>
             </View>
@@ -185,7 +199,6 @@ const Openleads = () => {
           />
         )}
       </ScrollView>
-
     </>
   );
 };
@@ -266,5 +279,11 @@ const styles = StyleSheet.create({
     minWidth: 70,
     alignItems: 'center',
   },
-  lcell: {color: '#333',fontSize: 10,fontWeight: 'bold', flexWrap: 'wrap',textTransform: 'capitalize'},
+  lcell: {
+    color: '#333',
+    fontSize: 10,
+    fontWeight: 'bold',
+    flexWrap: 'wrap',
+    textTransform: 'capitalize',
+  },
 });
