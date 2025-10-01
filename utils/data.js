@@ -8,7 +8,7 @@ let prop_for=['Rent','Sale','Both']
 let time=["09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM",]
 let agentfees=1000
 
-let pages=4
+let pages=5
 BASE_URL = "192.168.103.15:3000"; 
 const data={
     property_types,property_status_arr,publish_status_arr,status,agentStatus,construction_year,prop_for,time,agentfees,pages,BASE_URL

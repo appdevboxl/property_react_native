@@ -76,13 +76,14 @@ const PropertyFilter = ({ setProperties, properties, getToggleFilter, setToggleF
       propertyStatus: "",
       minPrice: "",
       maxPrice: "",
-      bedrooms: [],
-      area: [],
-      options: [],
+      bedrooms: "",
+      area: "",
+      options: "",
     });
     setany(false);
-
   };
+
+  console.log("Current Filters:", filters);
 
   return (
     <ScrollView style={[styles.container, !getToggleFilter && { display: 'flex' }]}>

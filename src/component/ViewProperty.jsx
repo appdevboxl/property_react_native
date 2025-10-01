@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import Navbar from './Navbar';
 import mydata from '../../utils/data';
-import {Picker} from '@react-native-picker/picker';
+import DownloadBrochure from './DownloadBrochure';
+
 
 const BASE_URL = 'http://' + mydata.BASE_URL;
 
@@ -49,7 +50,7 @@ const ViewProperty = ({route, navigation}) => {
       const res = await fetch(`${BASE_URL}/api/admin/getproperties/${id}`);
       if (!res.ok) throw new Error('Failed to fetch property details');
       const data = await res.json();
-      console.log(data)
+      // console.log(data)
       setProperty(data.myproperty || data);
       // setmylocation(data.myproperty.location);
     } catch (err) {
@@ -155,19 +156,21 @@ const ViewProperty = ({route, navigation}) => {
       <Navbar />
       <ScrollView style={styles.container}>
         {/* Cover Image */}
-        {property.frontimage ? (
+
           <Image
-            source={{uri: `${BASE_URL}/${property.frontimage}`}}
+            source={{uri: property.frontimage?`${BASE_URL}/${property.frontimage}`:'https://img.freepik.com/premium-photo/purely-vector-illustration-white-background_915071-14546.jpg?semt=ais_incoming&w=740&q=80'}}
             style={styles.coverImage}
           />
-        ) : null}
+
 
         {/* Title & Interested */}
         <View style={styles.headerRow}>
           <Text style={styles.title}>{property.title || 'Untitled'}</Text>
+          {/* <DownloadBrochure /> */}
           <TouchableOpacity onPress={() => setShowModal(true)}>
             <Text style={styles.interestedBtn}>Interested</Text>
           </TouchableOpacity>
+          
         </View>
 
         <Text style={styles.subtitle}>
@@ -334,7 +337,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  title: {fontSize: 24, fontWeight: 'bold', color: '#333'},
+  title: {fontSize: 24, fontWeight: 'bold', color: '#333',textTransform:'capitalize'},
   subtitle: {fontSize: 16, color: '#666', marginBottom: 6},
   price: {fontSize: 22, fontWeight: 'bold', color: '#aa8453'},
   status: {fontSize: 16, color: '#444', marginBottom: 16},
@@ -408,6 +411,12 @@ const styles = StyleSheet.create({
     minHeight: 100,
     textAlignVertical: 'top',
   },
+  webview: {
+  width: 100,
+  height: 50,
+  marginRight: 10,
+},
+
 });
 
 export default ViewProperty;

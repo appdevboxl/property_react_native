@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,12 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Navbar from './Navbar';
 import myurl from '../../utils/data';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PropertyFilter from './PropertyFilter';
+import Pagination from './Pagination'; // Your pagination component
 
 const Browse = () => {
   const navigation = useNavigation();
@@ -23,30 +24,43 @@ const Browse = () => {
   const [compMode, setCompMode] = useState(true);
   const [getToggleFilter, setToggleFilter] = useState(false);
 
+  // Pagination states
+  const [itemsPerPage, setItemsPerPage] = useState(myurl.pages);
+  const [pageData, setPageData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Fetch properties from backend
   useEffect(() => {
     fetchProperties();
   }, []);
+
   const fetchProperties = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://${myurl.BASE_URL}/api/admin/getproperties`,
+        `http://${myurl.BASE_URL}/api/admin/getproperties`
       );
       const mydata = await response.json();
       setProperties(mydata.myproperty || []);
     } catch (error) {
-      // console.error("Error fetching properties:", error);
       Alert.alert('Error', 'Something went wrong while fetching properties');
     } finally {
       setLoading(false);
     }
   };
 
+  // Filter published properties (memoized to avoid infinite loops)
+  const publishedProperties = useMemo(
+    () => properties.filter(item => item.listing_status === 'Published'),
+    [properties]
+  );
+
+  // Handle property selection for compare mode
   const toggleProperty = propertyId => {
     setSelectedProperties(prev =>
       prev.includes(propertyId)
         ? prev.filter(id => id !== propertyId)
-        : [...prev, propertyId],
+        : [...prev, propertyId]
     );
   };
 
@@ -55,20 +69,18 @@ const Browse = () => {
       Alert.alert('Warning', 'Select at least 2 properties to compare');
       return;
     }
-
     try {
       const res = await fetch(
         `http://${myurl.BASE_URL}/api/admin/compareproperty`,
         {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({propertyIds: selectedProperties}),
-        },
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ propertyIds: selectedProperties }),
+        }
       );
-
       const data = await res.json();
       if (res.ok) {
-        navigation.navigate('Compare', {ids: selectedProperties});
+        navigation.navigate('Compare', { ids: selectedProperties });
       } else {
         Alert.alert('Error', data.message || 'Comparison failed');
       }
@@ -87,38 +99,39 @@ const Browse = () => {
   }
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{ flex: 1 ,height:'100%'}}>
       <Navbar />
 
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{display: getToggleFilter ? 'flex' : 'none'}}>
-        <PropertyFilter  setProperties={setProperties} properties={properties} getToggleFilter={getToggleFilter} setToggleFilter={setToggleFilter}/>
-        </View>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        {getToggleFilter && (
+          <PropertyFilter
+            setProperties={setProperties}
+            properties={properties}
+            getToggleFilter={getToggleFilter}
+            setToggleFilter={setToggleFilter}
+          />
+        )}
+
         <View style={styles.container}>
-          {/* Compare Mode Toggle */}
+          {/* Header */}
           <View style={styles.header}>
-            <TouchableOpacity style={{ padding: 0, display: getToggleFilter ? 'none' : 'flex' }} onPress={() => setToggleFilter(!getToggleFilter)}>
-              <View>
-                <Icon
-                  name="bars"
-                  size={24}
-                  color="#060606ff"
-                  style={styles.cardIcon}
-                />
-              </View>
+            <TouchableOpacity
+              style={{ padding: 0, display: getToggleFilter ? 'none' : 'flex' }}
+              onPress={() => setToggleFilter(!getToggleFilter)}
+            >
+              <Icon name="bars" size={24} color="#060606ff" />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.toggleBtn}
-              onPress={() => setCompMode(!compMode)}>
+              onPress={() => setCompMode(!compMode)}
+            >
               <Text style={styles.toggleText}>
                 {compMode ? 'Enable Compare' : 'Browse Mode'}
               </Text>
             </TouchableOpacity>
 
             {!compMode && (
-              <TouchableOpacity
-                style={styles.toggleBtn}
-                onPress={handleCompare}>
+              <TouchableOpacity style={styles.toggleBtn} onPress={handleCompare}>
                 <Text style={styles.toggleText}>
                   Compare ({selectedProperties.length})
                 </Text>
@@ -126,93 +139,69 @@ const Browse = () => {
             )}
           </View>
 
-          {/* Property List */}
-          {properties.filter(item => item.listing_status === 'Published')
-            .length === 0 ? (
+          {/* Properties */}
+          {publishedProperties.length === 0 ? (
             <View style={styles.noData}>
               <Text style={styles.noDataText}>No Properties Found</Text>
             </View>
           ) : (
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-              }}>
-              {properties
-                .filter(item => item.listing_status === 'Published')
-                .map(item => (
-                  <View key={item._id} style={[styles.card, {width: '100%'}]}>
-                    {' '}
-                    {/* 2-column grid */}
-                    {/* Card content is clickable only in Browse mode */}
+            <View>
+              {pageData.map(item => (
+                <View key={item._id} style={styles.card}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      compMode &&
+                      navigation.navigate('ViewProperty', { id: item._id })
+                    }
+                  >
+                    <Image
+                      source={{
+                        uri: item.frontimage
+                          ? `http://${myurl.BASE_URL}/${item.frontimage}`
+                          : 'https://img.freepik.com/premium-photo/purely-vector-illustration-white-background_915071-14546.jpg?semt=ais_incoming&w=740&q=80',
+                      }}
+                      style={styles.image}
+                    />
+                    <View style={styles.cardContent}>
+                      <Text style={styles.title}>{item.title}</Text>
+                      <Text style={styles.sub2}>
+                        {item.location || 'Unknown Location'}
+                      </Text>
+                      <Text style={styles.price}>
+                        ₹{Intl.NumberFormat('en-IN').format(Math.round(item.price))}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  {!compMode && (
                     <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() =>
-                        compMode &&
-                        navigation.navigate('ViewProperty', {id: item._id})
-                      }>
-                      <Image
-                        source={{
-                          uri: item.frontimage
-                            ? `http://${myurl.BASE_URL}/${item.frontimage}`
-                            : 'https://img.freepik.com/premium-photo/purely-vector-illustration-white-background_915071-14546.jpg?semt=ais_incoming&w=740&q=80',
-                        }}
-                        style={styles.image}
-                      />
-                      <View style={styles.cardContent}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <Text style={styles.title}>{item.title}</Text>
-                          <Text style={styles.sub}>
-                           
-                            {item.createdAt
-                              ? new Date(item.createdAt).toLocaleDateString()
-                              : 'N/A'}
-                          </Text>
-                        </View>
-                        <View
-                          style={{flexDirection: 'row', alignItems: 'center'}}>
-                          <Text style={styles.price}>
-                            ₹
-                            {Intl.NumberFormat('en-IN').format(
-                              Math.round(item.price),
-                            )}
-                          </Text>
-                          {item.property_for === 'Rent' && (
-                            <Text style={styles.sub}> /month</Text>
-                          )}
-                        </View>
-
-                        <Text style={styles.sub2}>{item.property_type}</Text>
-                        <Text style={styles.sub2}>
-                          {item.location || 'Unknown Location'}
-                        </Text>
-                      </View>
+                      style={styles.compareBtn}
+                      onPress={() => toggleProperty(item._id)}
+                    >
+                      <Text style={styles.compareText}>
+                        {selectedProperties.includes(item._id)
+                          ? 'Remove'
+                          : 'Add to Compare'}
+                      </Text>
                     </TouchableOpacity>
-                    {/* Compare button only in Compare Mode */}
-                    {!compMode && (
-                      <TouchableOpacity
-                        style={styles.compareBtn}
-                        onPress={() => toggleProperty(item._id)}>
-                        <Text style={styles.compareText}>
-                          {selectedProperties.includes(item._id)
-                            ? 'Remove'
-                            : 'Add to Compare'}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                ))}
+                  )}
+                </View>
+              ))}
+
+              {/* Pagination */}
+              <Pagination
+                data={publishedProperties}
+                itemsPerPage={itemsPerPage}
+                onPageChange={(paged, pageNo, perPage) => {
+                  setPageData(paged);
+                  setItemsPerPage(perPage);
+                  setCurrentPage(pageNo);
+                }}
+              />
             </View>
           )}
         </View>
       </View>
-
-      {/* <Footer /> */}
     </ScrollView>
   );
 };
@@ -220,8 +209,8 @@ const Browse = () => {
 export default Browse;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#fff', padding: 10},
-  loader: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  container: { flex: 1, backgroundColor: '#fff', padding: 10,height:'100%' },
+  loader: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -233,33 +222,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 6,
   },
-  toggleText: {color: '#fff', fontWeight: '600'},
-  row: {justifyContent: 'space-between'},
+  toggleText: { color: '#fff', fontWeight: '600' },
   card: {
-    // flex: 1,
     backgroundColor: '#f9f9f9',
     borderRadius: 10,
-    margin: 5,
+    marginVertical: 5,
     overflow: 'hidden',
     elevation: 2,
     width: '100%',
   },
-  image: {width: '100%', height: 130, objectFit: 'contain'},
-  cardContent: {padding: 10},
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 4,
-    textTransform: 'capitalize',
-  },
-  price: {color: '#aa8453', fontWeight: '600', marginBottom: 2},
-  sub: {fontSize: 12, color: '#555', fontWeight: '600'},
-  sub2: {
-    fontSize: 13,
-    color: '#555',
-    fontWeight: '800',
-    textTransform: 'capitalize',
-  },
+  image: { width: '100%', height: 130, resizeMode: 'cover' },
+  cardContent: { padding: 10 },
+  title: { fontSize: 18, fontWeight: 'bold' },
+  price: { color: '#aa8453', fontWeight: '600' },
+  sub2: { fontSize: 13, color: '#555' },
   compareBtn: {
     backgroundColor: '#fff',
     padding: 6,
@@ -269,7 +245,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 5,
   },
-  compareText: {color: '#aa8453', fontSize: 12},
-  noData: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  noDataText: {color: '#888', fontSize: 16},
+  compareText: { color: '#aa8453', fontSize: 12 },
+  noData: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  noDataText: { color: '#888', fontSize: 16 },
 });

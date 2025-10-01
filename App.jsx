@@ -39,6 +39,7 @@ import Addagent from './src/component/Addagent';
 import Addproperties from './src/component/Addproperties';
 import PropertyFilter from './src/component/PropertyFilter';
 import EditAgent from './src/component/EditAgent';
+import BookAgent from './src/component/BookAgent';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -90,6 +91,7 @@ const BrowseStack = () => (
     <Stack.Screen name="Dashboard" component={Dashboard} />
     <Stack.Screen name="Compare" component={Compare} />
     <Stack.Screen name="ViewProperty" component={ViewProperty} />
+    <Stack.Screen name="BookAgent" component={BookAgent} />
   </Stack.Navigator>
 );
 
