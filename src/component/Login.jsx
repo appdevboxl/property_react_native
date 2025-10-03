@@ -6,8 +6,10 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+
 } from 'react-native';
 import React, {useState} from 'react';
+
 import mydata from '../../utils/data'
 // import EncryptedStorage from 'react-native-encrypted-storage';
 const Login = ({navigation}) => {
@@ -51,6 +53,9 @@ const Login = ({navigation}) => {
           email: '',
           password: '',
         });
+        global.authToken = data.token;
+
+        // AsyncStorage.setItem('token', data.token);
         // storage.set('token', data.token);
         navigation.navigate('Dashboard');
       } else {

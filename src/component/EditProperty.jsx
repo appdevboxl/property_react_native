@@ -55,6 +55,8 @@ const EditProperty = () => {
     }
   };
 
+// console.log(formData)
+
   // ---------- Fetch initial data ----------
   useEffect(() => {
     let mounted = true;
@@ -719,8 +721,8 @@ const EditProperty = () => {
           <Text style={styles.label}>Select Apartment types (BHK)</Text>
           <View style={styles.pickerContainer}>
             <Picker
-              selectedValue={formData.bhkTypes || ''}
-              onValueChange={val => handleInputChange('bhkTypes', val)}>
+              selectedValue={Array.isArray(formData.bhkTypes) ? formData.bhkTypes[0] : formData.bhkTypes || ''}
+              onValueChange={val => handleInputChange('bhkTypes', [val])}>
               <Picker.Item label="Select BHK Type" value="" />
               <Picker.Item label="1BHK" value="1BHK" />
               <Picker.Item label="2BHK" value="2BHK" />
@@ -734,8 +736,8 @@ const EditProperty = () => {
           <Text style={styles.label}>Bank</Text>
           <View style={styles.pickerContainer}>
             <Picker
-              selectedValue={formData.bank || ''}
-              onValueChange={val => handleInputChange('bank', val)}>
+              selectedValue={Array.isArray(formData.bank) ? formData.bank[0] : formData.bank || ''}
+              onValueChange={val => handleInputChange('bank', [val])}>
               <Picker.Item label="Select a bank" value="" />
               {banks.map((b, idx) => (
                 <Picker.Item key={idx} label={b.bank} value={b.bank} />

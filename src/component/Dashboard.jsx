@@ -3,10 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-nati
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AdminHeader from "./AdminHeader";
-
 const Dashboard = () => {
   const navigation = useNavigation();
-
+  // console.log(global.authToken);
+  
   const cards = [
     { id: 1, title: "Properties", subtitle: "Property Listings", color: "#6d7175", icon: "home", route: "Properties" },
     { id: 2, title: "Locations", subtitle: "Cities/Area", color: "#13cd89", icon: "map-marker-alt", route: "Locations" },

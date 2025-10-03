@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: 130, resizeMode: 'cover' },
   cardContent: { padding: 10 },
-  title: { fontSize: 18, fontWeight: 'bold' },
+  title: { fontSize: 18, fontWeight: 'bold',textTransform:'capitalize' },
   price: { color: '#aa8453', fontWeight: '600' },
   sub2: { fontSize: 13, color: '#555' },
   compareBtn: {

@@ -21,6 +21,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Navbar from './Navbar';
 import Carousel from './Carousel';
 import {Picker} from '@react-native-picker/picker';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// console.log(AsyncStorage.getItem('token'));
 
 const {width} = Dimensions.get('window');
 

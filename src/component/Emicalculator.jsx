@@ -98,6 +98,14 @@ const Emicalculator = () => {
         <Text style={styles.buttonText}>Calculate EMI</Text>
       </TouchableOpacity>
 
+      
+
+      {chartData && (
+        <View style={styles.chartContainer}>
+          <Text style={styles.sectionTitle}>Payment Distribution</Text>
+          <CustomPieChart data={chartData} size={Math.min(300, Dimensions.get('window').width - 80)} />
+        </View>
+      )}
       {emi && (
         <View style={styles.results}>
           <Text style={styles.sectionTitle}>EMI Breakdown</Text>
@@ -119,13 +127,6 @@ const Emicalculator = () => {
             <Text style={styles.resultLabel}>Total Payment:</Text>
             <Text style={styles.resultValue}>₹{parseFloat(totalPayment).toLocaleString("en-IN")}</Text>
           </View>
-        </View>
-      )}
-
-      {chartData && (
-        <View style={styles.chartContainer}>
-          <Text style={styles.sectionTitle}>Payment Distribution</Text>
-          <CustomPieChart data={chartData} size={Math.min(300, Dimensions.get('window').width - 80)} />
         </View>
       )}
     </ScrollView>
@@ -190,7 +191,7 @@ const CustomPieChart = ({ data, size = 220 }) => {
               width: size,
               height: size,
               borderRadius: radius,
-              backgroundColor: "#4CAF50", // green principal base
+              backgroundColor: "#adacaa", // green principal base
             },
           ]}
         />
@@ -222,7 +223,7 @@ const CustomPieChart = ({ data, size = 220 }) => {
                 top: 0,
                 width: radius,
                 height: size,
-                backgroundColor: "#F44336", // red interest
+                backgroundColor: "#aa8453", // red interest
               }}
             />
           </View>
@@ -265,7 +266,7 @@ const CustomPieChart = ({ data, size = 220 }) => {
       {/* Legend */}
       <View style={styles.legend}>
         <View style={styles.legendItem}>
-          <View style={[styles.legendColor, { backgroundColor: "#4CAF50" }]} />
+          <View style={[styles.legendColor, { backgroundColor: "#adacaa" }]} />
           <View style={styles.legendTextContainer}>
             <Text style={styles.legendLabel}>Principal Amount</Text>
             <Text style={styles.legendValue}>
@@ -275,7 +276,7 @@ const CustomPieChart = ({ data, size = 220 }) => {
         </View>
 
         <View style={styles.legendItem}>
-          <View style={[styles.legendColor, { backgroundColor: "#F44336" }]} />
+          <View style={[styles.legendColor, { backgroundColor: "#aa8453" }]} />
           <View style={styles.legendTextContainer}>
             <Text style={styles.legendLabel}>Interest Amount</Text>
             <Text style={styles.legendValue}>

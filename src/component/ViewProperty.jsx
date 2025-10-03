@@ -270,7 +270,7 @@ const ViewProperty = ({route, navigation}) => {
               <Text style={{fontSize: 24}}>×</Text>
             </TouchableOpacity>
 
-            <Text style={styles.modalTitle}>Schedule a Call</Text>
+            <Text style={styles.modalTitle}>Interested property</Text>
 
             <TextInput
               style={styles.input}
@@ -356,7 +356,8 @@ const styles = StyleSheet.create({
   bankText: {fontSize: 15, color: '#444'},
   link: {color: '#0066cc', textDecorationLine: 'underline'},
   button: {
-    marginVertical: 30,
+    marginTop: 5,
+    marginBottom: 30,
     padding: 12,
     backgroundColor: '#aa8453',
     borderRadius: 8,
